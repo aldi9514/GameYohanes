@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Misi Talenta - Karunia dari Tuhan</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#8b5cf6 0%,transparent 35%),
+        linear-gradient(135deg,#111827,#312e81,#581c87);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:hidden;
+}
+
+.container{
+    width:100%;
+    max-width:850px;
+    min-height:600px;
+    padding:25px;
+}
+
+/* ================= HOME ================= */
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+.home{
+    text-align:center;
+    padding:40px 20px;
+}
+
+.logo{
+    font-size:80px;
+    animation:float 2s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.title{
+    font-size:48px;
+    font-weight:900;
+    margin:10px 0;
+    background:linear-gradient(90deg,#fde68a,#fef3c7,#facc15);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.subtitle{
+    font-size:18px;
+    opacity:.9;
+    margin-bottom:30px;
+}
+
+.card{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.2);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+.story{
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.start-btn{
+    border:none;
+    padding:17px 40px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#facc15,#f59e0b);
+    color:#422006;
+    font-size:19px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(250,204,21,.3);
+    transition:.2s;
+}
+
+.start-btn:hover{
+    transform:scale(1.05);
+}
+
+/* ================= CHARACTER ================= */
+
+.character-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.characters{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.character{
+    padding:20px;
+    text-align:center;
+    background:rgba(255,255,255,.1);
+    border:2px solid transparent;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.character:hover{
+    transform:translateY(-5px);
+    background:rgba(255,255,255,.18);
+}
+
+.character.selected{
+    border-color:#facc15;
+    background:rgba(250,204,21,.18);
+}
+
+.avatar{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+/* ================= GAME ================= */
+
+.topbar{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.stat{
+    background:rgba(255,255,255,.12);
+    border-radius:15px;
+    padding:12px;
+    text-align:center;
+}
+
+.stat-icon{
+    font-size:20px;
+}
+
+.stat-value{
+    font-weight:bold;
+    margin-top:4px;
+}
+
+.timer-container{
+    height:10px;
+    background:rgba(255,255,255,.2);
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.timer{
+    height:100%;
+    width:100%;
+    background:#facc15;
+    transition:width 1s linear;
+}
+
+.level{
+    text-align:center;
+    color:#fde68a;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.question-card{
+    background:#fff;
+    color:#1f2937;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+.question{
+    font-size:24px;
+    font-weight:bold;
+    line-height:1.4;
+    margin-bottom:25px;
+}
+
+.answers{
+    display:grid;
+    gap:12px;
+}
+
+.answer{
+    padding:17px;
+    border:2px solid #e5e7eb;
+    border-radius:15px;
+    background:#f9fafb;
+    color:#1f2937;
+    text-align:left;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.answer:hover{
+    border-color:#8b5cf6;
+    background:#f5f3ff;
+    transform:translateX(5px);
+}
+
+.answer.correct{
+    background:#bbf7d0;
+    border-color:#22c55e;
+}
+
+.answer.wrong{
+    background:#fecaca;
+    border-color:#ef4444;
+}
+
+.feedback{
+    text-align:center;
+    font-weight:bold;
+    margin-top:18px;
+    min-height:25px;
+}
+
+.next-btn{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    background:#7c3aed;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    display:none;
+}
+
+/* ================= RESULT ================= */
+
+.result{
+    text-align:center;
+    padding:30px 10px;
+}
+
+.trophy{
+    font-size:90px;
+    animation:bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+    to{transform:translateY(-15px)}
+}
+
+.final-score{
+    font-size:55px;
+    font-weight:900;
+    color:#facc15;
+    margin:10px;
+}
+
+.rank{
+    font-size:25px;
+    margin:15px;
+    color:#fde68a;
+}
+
+.message{
+    line-height:1.7;
+    margin:20px auto;
+    max-width:600px;
+}
+
+.verse{
+    background:rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:20px;
+    margin:20px 0;
+    line-height:1.6;
+    font-style:italic;
+}
+
+.restart{
+    border:none;
+    padding:15px 35px;
+    border-radius:50px;
+    background:#facc15;
+    color:#422006;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* ================= PARTICLE ================= */
+
+.particle{
+    position:fixed;
+    pointer-events:none;
+    font-size:25px;
+    animation:particle 1s forwards;
+}
+
+@keyframes particle{
+    from{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    to{
+        opacity:0;
+        transform:translateY(-100px) scale(1.8);
+    }
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:15px;
+    }
+
+    .title{
+        font-size:34px;
+    }
+
+    .logo{
+        font-size:60px;
+    }
+
+    .characters{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .question{
+        font-size:20px;
+    }
+
+    .question-card{
+        padding:20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="screen active">
+
+<div class="home">
+
+<div class="logo">✨</div>
+
+<h1 class="title">
+MISI TALENTA
+</h1>
+
+<p class="subtitle">
+🎁 Karunia dari Tuhan
+</p>
+
+<div class="card">
+
+<p class="story">
+Setiap manusia memiliki talenta yang berbeda.
+Ada yang pandai bernyanyi, menggambar,
+berbicara, membantu orang lain, memimpin,
+berolahraga, atau membuat sesuatu.
+<br><br>
+
+Dalam permainan ini, kamu akan menjalankan
+<strong>Misi Talenta</strong> untuk menemukan
+cara menggunakan talenta dengan benar dan
+menjadi berkat bagi orang lain.
+</p>
+
+<button class="start-btn" onclick="showCharacter()">
+🚀 MULAI MISI
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CHARACTER ================= -->
+
+<section id="characterScreen" class="screen">
+
+<div class="card">
+
+<h2 class="character-title">
+👤 Pilih Karaktermu
+</h2>
+
+<div class="characters">
+
+<div class="character" onclick="selectCharacter(this,'🧑')">
+<div class="avatar">🧑</div>
+<p>Pemberani</p>
+</div>
+
+<div class="character" onclick="selectCharacter(this,'👩')">
+<div class="avatar">👩</div>
+<p>Kreatif</p>
+</div>
+
+<div class="character" onclick="selectCharacter(this,'🧑‍🎓')">
+<div class="avatar">🧑‍🎓</div>
+<p>Pembelajar</p>
+</div>
+
+</div>
+
+<br>
+
+<button class="start-btn"
+onclick="startGame()">
+🎯 MULAI PETUALANGAN
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= GAME ================= -->
+
+<section id="gameScreen" class="screen">
+
+<div class="topbar">
+
+<div class="stat">
+<div class="stat-icon">❤️</div>
+<div class="stat-value" id="lives">3</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">⭐</div>
+<div class="stat-value" id="score">0</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">💎</div>
+<div class="stat-value" id="coins">0</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">🔥</div>
+<div class="stat-value" id="combo">0</div>
+</div>
+
+</div>
+
+<div class="timer-container">
+<div class="timer" id="timer"></div>
+</div>
+
+<div class="level" id="level">
+LEVEL 1 — MENGENAL TALENTA
+</div>
+
+<div class="question-card">
+
+<div class="question" id="question">
+Pertanyaan...
+</div>
+
+<div class="answers" id="answers">
+</div>
+
+<div class="feedback" id="feedback">
+</div>
+
+<button class="next-btn"
+id="nextBtn"
+onclick="nextQuestion()">
+LANJUT ➜
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section id="resultScreen" class="screen">
+
+<div class="card result">
+
+<div class="trophy">
+🏆
+</div>
+
+<h1>MISI SELESAI!</h1>
+
+<p>Skor Akhir</p>
+
+<div class="final-score" id="finalScore">
+0
+</div>
+
+<div class="rank" id="rank">
+</div>
+
+<p class="message" id="resultMessage">
+</p>
+
+<div class="verse">
+
+📖 <strong>1 Petrus 4:10</strong>
+
+<br><br>
+
+"Layani seorang akan yang lain,
+sesuai dengan karunia yang telah
+diperoleh tiap-tiap orang."
+
+</div>
+
+<button class="restart"
+onclick="restartGame()">
+
+🔄 MAIN LAGI
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   DATA GAME
+========================================= */
+
+const questions = [
+
+{
+level:1,
+q:"Menurut iman Kristen, dari manakah talenta yang kita miliki berasal?",
+a:[
+"Dari Tuhan",
+"Dari keberuntungan",
+"Dari kekayaan",
+"Dari orang lain"
+],
+correct:0
+},
+
+{
+level:1,
+q:"Apa yang sebaiknya dilakukan terhadap talenta yang Tuhan berikan?",
+a:[
+"Disembunyikan",
+"Dikembangkan",
+"Diabaikan",
+"Dibandingkan dengan orang lain"
+],
+correct:1
+},
+
+{
+level:1,
+q:"Setiap manusia memiliki...",
+a:[
+"Talenta yang sama",
+"Talenta yang berbeda-beda",
+"Talenta yang tidak berguna",
+"Talenta hanya jika kaya"
+],
+correct:1
+},
+
+{
+level:1,
+q:"Sikap yang baik ketika mengetahui teman memiliki talenta berbeda adalah...",
+a:[
+"Iri hati",
+"Mengejek",
+"Menghargai",
+"Menjauhi"
+],
+correct:2
+},
+
+{
+level:2,
+q:"Jika kamu memiliki kemampuan bernyanyi, penggunaan yang baik adalah...",
+a:[
+"Menyombongkan diri",
+"Memuji Tuhan dan menghibur orang lain",
+"Mengejek orang yang tidak bisa bernyanyi",
+"Menyembunyikan kemampuan"
+],
+correct:1
+},
+
+{
+level:2,
+q:"Mengapa talenta harus terus dikembangkan?",
+a:[
+"Agar menjadi terkenal",
+"Agar bisa menjadi lebih baik dan bermanfaat",
+"Agar lebih hebat dari teman",
+"Agar mendapat pujian"
+],
+correct:1
+},
+
+{
+level:2,
+q:"Contoh menggunakan talenta untuk membantu sesama adalah...",
+a:[
+"Menggunakan kemampuan komputer untuk membantu teman",
+"Mengejek teman",
+"Menyimpan kemampuan sendiri",
+"Merendahkan orang lain"
+],
+correct:0
+},
+
+{
+level:2,
+q:"Ketika gagal dalam mengembangkan talenta, sebaiknya kita...",
+a:[
+"Menyerah",
+"Menyalahkan Tuhan",
+"Terus belajar dan berlatih",
+"Menyalahkan teman"
+],
+correct:2
+},
+
+{
+level:3,
+q:"Menggunakan talenta hanya untuk mendapatkan pujian menunjukkan sikap...",
+a:[
+"Rendah hati",
+"Bijaksana",
+"Egois",
+"Peduli"
+],
+correct:2
+},
+
+{
+level:3,
+q:"Talenta yang kita miliki sebaiknya digunakan untuk...",
+a:[
+"Membanggakan diri",
+"Menjadi berkat bagi sesama",
+"Mengalahkan orang lain",
+"Mendapatkan popularitas"
+],
+correct:1
+},
+
+{
+level:3,
+q:"Jika kamu pandai memimpin, tindakan yang tepat adalah...",
+a:[
+"Mengatur semua orang sesuka hati",
+"Membantu dan mengarahkan orang lain dengan bijaksana",
+"Merendahkan anggota kelompok",
+"Memaksa orang lain"
+],
+correct:1
+},
+
+{
+level:3,
+q:"Apa hubungan talenta dengan pelayanan kepada Tuhan?",
+a:[
+"Talenta dapat digunakan untuk melayani Tuhan",
+"Talenta tidak berhubungan dengan pelayanan",
+"Hanya pendeta yang boleh menggunakan talenta",
+"Talenta harus disembunyikan"
+],
+correct:0
+}
+
+];
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentQuestion = 0;
+let score = 0;
+let coins = 0;
+let lives = 3;
+let combo = 0;
+let selectedCharacter = "🧑";
+let answered = false;
+let timeLeft = 15;
+let timerInterval;
+
+
+/* =========================================
+   SCREEN
+========================================= */
+
+function showScreen(id){
+
+document.querySelectorAll(".screen")
+.forEach(screen=>{
+screen.classList.remove("active");
+});
+
+document.getElementById(id)
+.classList.add("active");
+
+}
+
+
+/* =========================================
+   CHARACTER
+========================================= */
+
+function showCharacter(){
+
+showScreen("characterScreen");
+
+}
+
+function selectCharacter(element,character){
+
+document.querySelectorAll(".character")
+.forEach(c=>{
+c.classList.remove("selected");
+});
+
+element.classList.add("selected");
+
+selectedCharacter=character;
+
+}
+
+
+/* =========================================
+   START GAME
+========================================= */
+
+function startGame(){
+
+showScreen("gameScreen");
+
+currentQuestion=0;
+score=0;
+coins=0;
+lives=3;
+combo=0;
+
+updateStats();
+
+loadQuestion();
+
+}
+
+
+/* =========================================
+   LOAD QUESTION
+========================================= */
+
+function loadQuestion(){
+
+answered=false;
+
+clearInterval(timerInterval);
+
+const q=questions[currentQuestion];
+
+document.getElementById("question")
+.textContent=q.q;
+
+document.getElementById("level")
+.textContent=
+"LEVEL "+q.level+
+(q.level===1 ?
+" — MENGENAL TALENTA":
+q.level===2 ?
+" — MENGEMBANGKAN TALENTA":
+" — MELAYANI DENGAN TALENTA");
+
+
+const answers=
+document.getElementById("answers");
+
+answers.innerHTML="";
+
+q.a.forEach((answer,index)=>{
+
+const button=
+document.createElement("button");
+
+button.className="answer";
+
+button.textContent=
+String.fromCharCode(65+index)+". "+answer;
+
+button.onclick=()=>{
+checkAnswer(button,index);
+};
+
+answers.appendChild(button);
+
+});
+
+document.getElementById("feedback")
+.textContent="";
+
+document.getElementById("nextBtn")
+.style.display="none";
+
+startTimer();
+
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+function startTimer(){
+
+timeLeft=15;
+
+const timer=
+document.getElementById("timer");
+
+timer.style.width="100%";
+
+timerInterval=
+setInterval(()=>{
+
+timeLeft--;
+
+timer.style.width=
+(timeLeft/15*100)+"%";
+
+if(timeLeft<=0){
+
+clearInterval(timerInterval);
+
+if(!answered){
+
+timeOut();
+
+}
+
+}
+
+},1000);
+
+}
+
+
+/* =========================================
+   TIME OUT
+========================================= */
+
+function timeOut(){
+
+answered=true;
+
+lives--;
+
+combo=0;
+
+updateStats();
+
+document.getElementById("feedback")
+.textContent=
+"⏰ Waktu habis!";
+
+document.getElementById("feedback")
+.style.color="#dc2626";
+
+document.getElementById("nextBtn")
+.style.display="block";
+
+if(lives<=0){
+
+setTimeout(showResult,700);
+
+}
+
+}
+
+
+/* =========================================
+   CHECK ANSWER
+========================================= */
+
+function checkAnswer(button,index){
+
+if(answered)return;
+
+answered=true;
+
+clearInterval(timerInterval);
+
+const q=questions[currentQuestion];
+
+const buttons=
+document.querySelectorAll(".answer");
+
+if(index===q.correct){
+
+button.classList.add("correct");
+
+score+=10+(combo*2);
+
+coins+=5;
+
+combo++;
+
+document.getElementById("feedback")
+.textContent=
+"✨ BENAR! +"+(10+(combo-1)*2)+" poin";
+
+document.getElementById("feedback")
+.style.color="#16a34a";
+
+createParticles("⭐");
+
+}else{
+
+button.classList.add("wrong");
+
+buttons[q.correct]
+.classList.add("correct");
+
+lives--;
+
+combo=0;
+
+document.getElementById("feedback")
+.textContent=
+"💡 Belum tepat. Tetap semangat!";
+
+document.getElementById("feedback")
+.style.color="#dc2626";
+
+createParticles("💔");
+
+}
+
+updateStats();
+
+document.getElementById("nextBtn")
+.style.display="block";
+
+if(lives<=0){
+
+setTimeout(showResult,800);
+
+}
+
+}
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+function nextQuestion(){
+
+currentQuestion++;
+
+if(currentQuestion>=questions.length ||
+lives<=0){
+
+showResult();
+
+}else{
+
+loadQuestion();
+
+}
+
+}
+
+
+/* =========================================
+   UPDATE STATS
+========================================= */
+
+function updateStats(){
+
+document.getElementById("lives")
+.textContent=lives;
+
+document.getElementById("score")
+.textContent=score;
+
+document.getElementById("coins")
+.textContent=coins;
+
+document.getElementById("combo")
+.textContent=combo;
+
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+function showResult(){
+
+clearInterval(timerInterval);
+
+showScreen("resultScreen");
+
+document.getElementById("finalScore")
+.textContent=score;
+
+let rank="";
+let message="";
+
+if(score>=100){
+
+rank="👑 PENJAGA TALENTA";
+
+message=
+"Hebat! Kamu menunjukkan pemahaman yang sangat baik. Gunakan talenta yang Tuhan berikan dengan rendah hati dan jadilah berkat bagi banyak orang.";
+
+}else if(score>=70){
+
+rank="🌟 PELAYAN TALENTA";
+
+message=
+"Bagus sekali! Kamu sudah memahami pentingnya mengembangkan dan menggunakan talenta untuk Tuhan dan sesama.";
+
+}else if(score>=40){
+
+rank="⭐ PENGEMBANG TALENTA";
+
+message=
+"Kamu sudah berada di jalan yang benar. Teruslah belajar, berlatih, dan kembangkan talenta yang Tuhan berikan.";
+
+}else{
+
+rank="🌱 PENCARI TALENTA";
+
+message=
+"Jangan menyerah! Setiap orang memiliki karunia masing-masing. Terus belajar dan temukan talenta yang Tuhan berikan kepadamu.";
+
+}
+
+document.getElementById("rank")
+.textContent=rank;
+
+document.getElementById("resultMessage")
+.textContent=message;
+
+}
+
+
+/* =========================================
+   RESTART
+========================================= */
+
+function restartGame(){
+
+showScreen("home");
+
+}
+
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+function createParticles(symbol){
+
+for(let i=0;i<8;i++){
+
+const particle=
+document.createElement("div");
+
+particle.className="particle";
+
+particle.textContent=symbol;
+
+particle.style.left=
+Math.random()*90+"%";
+
+particle.style.top=
+Math.random()*70+"%";
+
+particle.style.animationDelay=
+Math.random()*.3+"s";
+
+document.body.appendChild(particle);
+
+setTimeout(()=>{
+particle.remove();
+},1000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
